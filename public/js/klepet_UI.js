@@ -28,6 +28,7 @@ function procesirajVnosUporabnika(klepetApp, socket) {
     $('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').scrollTop($('#sporocila').prop('scrollHeight'));
   }
+<<<<<<< HEAD
    match($('#poslji-sporocilo').val());
   $('#poslji-sporocilo').val('');
 }
@@ -40,6 +41,20 @@ function match(besedilo){
      }
 }
 
+=======
+  youtube($('#poslji-sporocilo').val());
+  $('#poslji-sporocilo').val('');
+}
+function youtube(besedilo){
+    var reg = /(https|http):..www.youtube.com.watch.v\S{12}/g;
+    var res = besedilo.match(reg);
+    for(vid in res){
+      var n = res[vid].split(/=/);
+      $("#sporocila").append('<iframe src="https://www.youtube.com/embed/'+n[1]+'" allowfullscreen class="youtube" ></iframe>');
+      
+    }
+}
+>>>>>>> youtube
 var socket = io.connect();
 var trenutniVzdevek = "", trenutniKanal = "";
 
@@ -84,8 +99,13 @@ $(document).ready(function() {
   socket.on('sporocilo', function (sporocilo) {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
+<<<<<<< HEAD
     var myelement = match(sporocilo.besedilo);
     $('#sporocila').append(myelement);
+=======
+    var myelement = youtube(sporocilo.besedilo);
+   $('#sporocila').append(myelement);
+>>>>>>> youtube
   });
   
   socket.on('kanali', function(kanali) {
