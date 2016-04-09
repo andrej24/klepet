@@ -100,6 +100,27 @@ $(document).ready(function() {
       $('#seznam-uporabnikov').append(divElementEnostavniTekst(uporabniki[i]));
     }
   });
+  
+   socket.on('dregljaj', function(dregljaj){
+    if(dregljaj.dregljaj){
+      $('#vsebina').jrumble({
+        x: 6,
+        y: 6,
+        rotation: 6,
+        speed: 5,
+        opacity: true,
+        opacityMin: .05
+      });
+      // Start rumble on element
+      $('#vsebina').trigger('startRumble');
+      var audio = new Audio('sounds-957-flutter.mp3');
+      audio.play();
+      // Stop rumble on element
+      setTimeout(function(){$('#vsebina').trigger('stopRumble');}
+        ,1500);
+          
+    }
+  });
 
   setInterval(function() {
     socket.emit('kanali');
