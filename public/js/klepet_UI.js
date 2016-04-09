@@ -28,10 +28,18 @@ function procesirajVnosUporabnika(klepetApp, socket) {
     $('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').scrollTop($('#sporocila').prop('scrollHeight'));
   }
-
+  youtube($('#poslji-sporocilo').val());
   $('#poslji-sporocilo').val('');
 }
-
+function youtube(besedilo){
+    var reg = /(https|http):..www.youtube.com.watch.v\S{12}/g;
+    var res = besedilo.match(reg);
+    for(vid in res){
+      var n = res[vid].split(/=/);
+      $("#sporocila").append('<iframe src="https://www.youtube.com/embed/'+n[1]+'" allowfullscreen class="youtube" ></iframe>');
+      
+    }
+}
 var socket = io.connect();
 var trenutniVzdevek = "", trenutniKanal = "";
 
@@ -76,6 +84,8 @@ $(document).ready(function() {
   socket.on('sporocilo', function (sporocilo) {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
+    var myelement = youtube(sporocilo.besedilo);
+   $('#sporocila').append(myelement);
   });
   
   socket.on('kanali', function(kanali) {
