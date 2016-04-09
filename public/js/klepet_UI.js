@@ -28,33 +28,13 @@ function procesirajVnosUporabnika(klepetApp, socket) {
     $('#sporocila').append(divElementEnostavniTekst(sporocilo));
     $('#sporocila').scrollTop($('#sporocila').prop('scrollHeight'));
   }
-<<<<<<< HEAD
-   match($('#poslji-sporocilo').val());
-  $('#poslji-sporocilo').val('');
-}
 
-function match(besedilo){
-    var reg = /(https|http):..[^ ]*\.(jpg|png|gif)/g;
-    var match = besedilo.match(reg);
-     for (img in match) { 
-       $("#sporocila").append('<img src="' + match[img] + '" class="slika" />');
-     }
-}
-
-=======
+  match($('#poslji-sporocilo').val());
   youtube($('#poslji-sporocilo').val());
   $('#poslji-sporocilo').val('');
+  
 }
-function youtube(besedilo){
-    var reg = /(https|http):..www.youtube.com.watch.v\S{12}/g;
-    var res = besedilo.match(reg);
-    for(vid in res){
-      var n = res[vid].split(/=/);
-      $("#sporocila").append('<iframe src="https://www.youtube.com/embed/'+n[1]+'" allowfullscreen class="youtube" ></iframe>');
-      
-    }
-}
->>>>>>> youtube
+
 var socket = io.connect();
 var trenutniVzdevek = "", trenutniKanal = "";
 
@@ -99,13 +79,10 @@ $(document).ready(function() {
   socket.on('sporocilo', function (sporocilo) {
     var novElement = divElementEnostavniTekst(sporocilo.besedilo);
     $('#sporocila').append(novElement);
-<<<<<<< HEAD
-    var myelement = match(sporocilo.besedilo);
-    $('#sporocila').append(myelement);
-=======
+    var el = match(sporocilo.besedilo);
+    $('#sporocila').append(el);
     var myelement = youtube(sporocilo.besedilo);
-   $('#sporocila').append(myelement);
->>>>>>> youtube
+    $('#sporocila').append(myelement);
   });
   
   socket.on('kanali', function(kanali) {
@@ -170,7 +147,23 @@ $(document).ready(function() {
   
   
 });
+function match(besedilo){
+    var reg = /(https|http):..[^ ]*\.(jpg|png|gif)/g;
+    var match = besedilo.match(reg);
+     for (img in match) { 
+       $("#sporocila").append('<img src="' + match[img] + '" class="slika" />');
+     }
+}
 
+function youtube(besedilo){
+    var reg = /(https|http):..www.youtube.com.watch.v\S{12}/g;
+    var res = besedilo.match(reg);
+    for(vid in res){
+      var n = res[vid].split(/=/);
+      $("#sporocila").append('<iframe src="https://www.youtube.com/embed/'+n[1]+'" allowfullscreen class="youtube" ></iframe>');
+      
+    }
+}
 function dodajSmeske(vhodnoBesedilo) {
   var preslikovalnaTabela = {
     ";)": "wink.png",
